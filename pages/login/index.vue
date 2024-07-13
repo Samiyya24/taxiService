@@ -1,30 +1,37 @@
 <script setup>
 import { ref } from "vue";
+import axios from "axios";
 
-const name = ref("");
-const surname = ref("");
 const phone = ref("");
 const password = ref("");
 
-const register = () => {
-  console.log("Ism:", name.value);
-  console.log("Familiya:", surname.value);
+const login = async () => {
   console.log("Nomer:", phone.value);
   console.log("Parol:", password.value);
-  // Bu yerda formani yuborish uchun qo'shimcha kod yozishingiz mumkin
+
+  const data = {
+    phone: phone.value,
+    password: password.value,
+  };
+
+  try {
+    const response = await axios.post("http://localhost:3000/api/login", data);
+    console.log("Success:", response.data);
+  } catch (error) {
+    console.error("Error:", error);
+  }
 };
 </script>
 
 <template>
-  <div class="bg-[#F2F2F2] min-h-screen flex items-center justify-center">
-    <div class="container bg-white p-8 rounded-lg shadow-md max-w-md w-full">
-      <form @submit.prevent="register">
+  <div class="login min-h-screen flex items-center justify-center">
+    <div class="w-[400px] bg-white/20 p-8 rounded-lg shadow-md max-w-md">
+      <form @submit.prevent="login">
         <div class="text-center mb-4">
-          <h2 class="text-2xl font-bold">Kirish</h2>
+          <h2 class="text-2xl font-bold text-white">Kirish</h2>
         </div>
-
         <div class="mb-4">
-          <label class="block text-gray-700">Nomer</label>
+          <label class="block text-white">Nomer</label>
           <input
             v-model="phone"
             type="text"
@@ -33,7 +40,7 @@ const register = () => {
           />
         </div>
         <div class="mb-4">
-          <label class="block text-gray-700">Parol</label>
+          <label class="block text-white">Parol</label>
           <input
             v-model="password"
             type="password"
@@ -57,5 +64,10 @@ const register = () => {
 <style lang="scss" scoped>
 .container {
   max-width: 400px;
+}
+.login {
+  background-image: url("/login_bg.png");
+  background-size: cover;
+  background-position: center;
 }
 </style>

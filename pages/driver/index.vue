@@ -25,14 +25,17 @@ try {
 </script>
 
 <template>
-  <div class="login min-h-screen flex items-center justify-center">
+  <div class="login min-h-screen flex flex-col items-center justify-center">
+    <h1 class="text-[42px] font-medium text-white">
+      Viloyatlar bo‘ylab taksi haydovchisi sifatida ishlash
+    </h1>
     <div class="w-[400px] bg-white/20 p-8 rounded-lg shadow-md max-w-md">
       <form @submit.prevent="register">
         <div class="text-center mb-4">
-          <h2 class="text-2xl font-bold">Ro'yxatdan o'tish</h2>
+          <h2 class="text-2xl font-bold text-white">Ro'yxatdan o'tish</h2>
         </div>
         <div class="mb-4">
-          <label class="block text-gray-700">Ism</label>
+          <label class="block text-white">Ism</label>
           <input
             v-model="name"
             type="text"
@@ -41,7 +44,7 @@ try {
           />
         </div>
         <div class="mb-4">
-          <label class="block text-gray-700">Familiya</label>
+          <label class="block text-white">Familiya</label>
           <input
             v-model="surname"
             type="text"
@@ -50,7 +53,7 @@ try {
           />
         </div>
         <div class="mb-4">
-          <label class="block text-gray-700">Nomer</label>
+          <label class="block text-white">Nomer</label>
           <input
             v-model="phone"
             type="text"
@@ -59,7 +62,7 @@ try {
           />
         </div>
         <div class="mb-4">
-          <label class="block text-gray-700">Parol</label>
+          <label class="block text-white">Parol</label>
           <input
             v-model="password"
             type="password"
@@ -76,7 +79,7 @@ try {
           </button>
         </div>
         <div class="text-left mt-4">
-          <nuxt-link class="text-[#052474] hover:underline text-sm" to="login"
+          <nuxt-link class="text-white hover:underline text-sm" to="login"
             >Ro'yxatdan o'tganmisiz?</nuxt-link
           >
         </div>
