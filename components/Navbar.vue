@@ -26,7 +26,7 @@ const switchLanguage = (language) => {
 </script>
 
 <template>
-  <div class="bg-primary text-white fixed w-full z-10">
+  <div class="bg-primary text-white fixed w-full z-30 shadow-md py-3">
     <div class="container relative">
       <div class="flex justify-between items-center">
         <nuxt-link to="/home">
@@ -86,29 +86,35 @@ const switchLanguage = (language) => {
     </div>
   </div>
   <!-- Sidebar -->
-  <div
-    v-if="showSidebar"
-    @click="toggleSidebar"
-    class="fixed top-0 right-0 w-full h-full bg-black bg-opacity-50 z-20"
-  >
-    <div class="absolute right-0 top-0 bg-primary w-2/3 h-full text-white p-5">
-      <ul>
-        <li class="mb-5">
-          <nuxt-link to="/about" @click="toggleSidebar"
-            >Biz haqimizda</nuxt-link
-          >
-        </li>
-        <li>
-          <nuxt-link to="/questions" @click="toggleSidebar"
-            >Savol/javob</nuxt-link
-          >
-        </li>
-      </ul>
+  <transition name="sidebar">
+    <div
+      v-if="showSidebar"
+      @click="toggleSidebar"
+      class="fixed top-12 right-0 w-full h-full bg-black bg-opacity-50 z-20"
+    >
+      <div
+        class="absolute right-0 top-0 bg-primary text-center font-bold w-2/3 h-full text-white p-5"
+      >
+        <ul>
+          <li class="mb-5">
+            <nuxt-link to="/about" @click="toggleSidebar"
+              >Biz haqimizda</nuxt-link
+            >
+          </li>
+          <li>
+            <nuxt-link to="/questions" @click="toggleSidebar"
+              >Savol / javob</nuxt-link
+            >
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <style lang="scss" scoped>
+// dropdown
+
 .dropdown-enter-active,
 .dropdown-leave-active {
   transition: opacity 0.9s ease, transform 0.9s ease;
@@ -124,19 +130,18 @@ const switchLanguage = (language) => {
   transform: translateY(0);
 }
 
-.relative {
-  position: relative;
+// sidebar
+.sidebar-leave-active,
+.sidebar-enter-active {
+  transition: transform 0.3s ease;
 }
-.mt-1 {
-  margin-top: 0.25rem;
+
+.sidebar-enter,
+.sidebar-leave-to {
+  transform: translateX(100%);
 }
-.rounded {
-  border-radius: 0.25rem;
-}
-.shadow {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.cursor-pointer {
-  cursor: pointer;
+.sidebar-enter-to,
+.sidebar-leave {
+  transform: translateX(0);
 }
 </style>

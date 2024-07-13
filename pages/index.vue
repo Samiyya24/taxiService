@@ -29,7 +29,7 @@ try {
     <div class="w-[400px] bg-white/20 p-8 rounded-lg shadow-md max-w-md">
       <form @submit.prevent="register">
         <div class="text-center mb-4">
-          <h2 class="text-2xl font-bold">Ro'yxatdan o'tish</h2>
+          <h2 class="text-2xl text-white font-bold">Ro'yxatdan o'tish</h2>
         </div>
         <div class="mb-4">
           <label class="block text-gray-700">Ism</label>
@@ -76,8 +76,8 @@ try {
           </button>
         </div>
         <div class="text-left mt-4">
-          <nuxt-link class="text-[#052474] hover:underline text-sm" to="login"
-            >Ro'yxatdan o'tganmisiz?</nuxt-link
+          <nuxt-link class="text-white hover:underline text-sm" to="login"
+            >Ro'yxatdan o'tganmisiz ?</nuxt-link
           >
         </div>
       </form>

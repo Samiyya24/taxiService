@@ -8,4 +8,6 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+
+  modules: ["@samk-dev/nuxt-vcalendar"],
 });
