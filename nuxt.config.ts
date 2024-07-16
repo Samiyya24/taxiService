@@ -10,4 +10,5 @@ export default defineNuxtConfig({
   },
 
   modules: ["@samk-dev/nuxt-vcalendar"],
+
 });

@@ -7,7 +7,7 @@ const setComponent = (component) => {
 </script>
 
 <template>
-  <div class="home min-h-screen min-w-full md:pt-52 pt-24">
+  <div class="home h-screen min-w-full md:pt-52 pt-24">
     <div class="container text-center">
       <div
         class="text-white border border-primary md:text-[26px] text-xs font-medium rounded-full md:max-w-[620px] mx-auto flex items-center"
