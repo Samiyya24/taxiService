@@ -1,20 +1,3 @@
-<template>
-  <div>
-    <div>
-      <div class="md:flex justify-between items-center mt-16 mb-7">
-       
-        <FilterButtonsWhere/>
-        <FilterButtonsWhereTo/>
-        <FilterButtonsCalendar/>
-        <!-- QIDIRISH -->
-        <button class="bg-primary md:py-7 md:px-14 mt-2 max-md:ml-[20%] py-3 px-14 text-3xl rounded-md">
-          Qidirish
-        </button>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import regionsData from '../../JSON/regions.json';
 import 'v-calendar/style.css';
@@ -96,7 +79,75 @@ const myfunction = () => {
     alert('tanlamang');
   }
 };
-</script>
+</script><template>
+  <div>
+    <div
+      v-if="showToList || showFromList"
+      id="back"
+      @click="hideAllLists"
+      class="bg-transparent w-screen h-screen fixed top-0 left-0 z-30"
+    ></div>
+
+    <!-- QAYERGA -->
+    <button
+      class="bg-white/10 rounded-md rounded-b-none py-3 px-[24px] relative"
+      @click="toggleToList"
+    >
+      <div
+        class="duration-300"
+        :class="!setPlaceTo?.value ? 'scale-100' : 'scale-0 w-0 h-0'"
+      >
+        <p class="py-5 px-12 text-3xl text-white">Qayerga</p>
+      </div>
+      <div
+        class="flex flex-col gap-3 duration-300"
+        :class="setPlaceTo?.value ? 'scale-100' : 'scale-0 w-0 h-0'"
+      >
+        <p>Qayrega</p>
+        <p class="text-3xl line-clamp-1">
+          {{ setPlaceTo?.value ? setPlaceTo.value : "" }}
+        </p>
+      </div>
+      <transition name="slide-fade" v-if="showToList">
+        <div
+          class="flex mt-[17px] w-[500px] z-40 bg-black/60 text-2xl max-h-40 absolute left-0"
+        >
+          <!-- regions -->
+          <div
+            class="flex-col border flex cursor-pointer overflow-auto overflow-x-hidden"
+          >
+            <span
+              v-for="(city, index) in cities"
+              :key="city.region"
+              class="p-2 hover:bg-white/20 w-[300px]"
+              @click="selectedRegionTo(index)"
+            >
+              {{ city.region }}
+            </span>
+          </div>
+          <!-- districts -->
+          <div
+            class="flex flex-col overflow-y-auto w-full"
+            v-if="selectRegionTo !== null"
+          >
+            <span
+              v-for="district in cities[selectRegionTo].district"
+              :key="district"
+              class="p-2 hover:bg-white/20"
+              @click="
+                setPlaceToDistrict(cities[selectRegionTo].region, district)
+              "
+            >
+              <p>{{ district }}</p>
+            </span>
+          </div>
+        </div>
+      </transition>
+    </button>
+  </div>
+</template>
+
+
 
 <style lang="scss" scoped>
 .overflow-y-auto {

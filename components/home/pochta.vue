@@ -42,35 +42,14 @@ const cities = [
 <template>
   <div class="container text-white md:mt-20 mt-12 relative">
     <h1 class="md:text-[42px] text-[22px] font-medium">
-      Har kuni O'zbekiston bo'ylab taxi va yuk tashish xizmati
+      Har kuni O'zbekiston bo'ylab pochta tashish xizmati
     </h1>
     <p class="md:text-[22px] text-lg md:mt-8 mt-4">
       Biz viloyatlar bo'ylab hamyonbop qatnov turlarini taklif qilamiz
     </p>
 
     <div class="md:flex justify-between items-center mt-16 mb-7">
-      <div
-        class="bg-white/10 rounded-md md:w-[20%] rounded-b-none py-3 px-[24px] relative"
-        @click="showFromList = !showFromList"
-      >
-        <p class="mb-4 text-[#D1D1D1]">Qayerdan</p>
-        <p class="text-3xl">{{ selectedFrom }}</p>
-        <transition name="slide-fade">
-          <div
-            v-if="showFromList"
-            class="flex flex-col mt-[17px] w-full bg-black/10 px-5 text-2xl cursor-pointer overflow-y-auto max-h-40 absolute left-0"
-          >
-            <span
-              v-for="city in cities"
-              :key="city"
-              class="p-2 hover:bg-black/20"
-              @click="selectedFrom = city"
-            >
-              {{ city }}
-            </span>
-          </div>
-        </transition>
-      </div>
+     
       <div
         class="bg-white/10 rounded-md md:w-[20%] mt-2 p-3 relative"
         @click="showToList = !showToList"
