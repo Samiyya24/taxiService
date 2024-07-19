@@ -47,12 +47,12 @@ const setComponent = (component) => {
     <div v-if="currentComponent === 'taxi'">
       <HomeTaxi />
     </div>
-    <div v-if="currentComponent === 'yuk'">
+    <!-- <div v-if="currentComponent === 'yuk'">
       <HomeYuk />
-    </div>
-    <div v-if="currentComponent === 'pochta'">
+    </div> -->
+    <!-- <div v-if="currentComponent === 'pochta'">
       <HomePochta />
-    </div>
+    </div> -->
   </div>
 </template>
 

@@ -8,7 +8,7 @@
 
         <!-- QIDIRISH -->
         <button
-          class="bg-primary md:py-7 md:px-14 mt-2 max-md:ml-[20%] py-3 px-14 text-3xl rounded-md"
+          class="md:bg-[#4e4e4e] md:hover:bg-primary bg-primary md:py-8 md:px-14 max-md:ml-[20%] py-3 px-14 text-3xl rounded-md"
         >
           Qidirish
         </button>

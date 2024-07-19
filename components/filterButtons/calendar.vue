@@ -1,6 +1,7 @@
 <script setup>
 import "v-calendar/style.css";
 import { onClickOutside } from "@vueuse/core";
+import { toast } from "vue3-toastify";
 
 const date = ref(new Date());
 
@@ -45,8 +46,14 @@ const myfunction = () => {
     day = String(selectedDate.getDate()).padStart(2, "0");
     selectedDate = `${year}.${month}.${day}`;
   } else {
-    notify("Kun xato tanlandi");
+    // notify("Kun xato tanlandi");
     selectedDate = "";
+    toast("Kun xato tanlandi", {
+      theme: "dark",
+      type: "error",
+      transition: "slide",
+      dangerouslyHTMLString: true,
+    });
   }
 };
 </script>
@@ -61,7 +68,9 @@ const myfunction = () => {
     ></div>
 
     <!-- QACHON -->
-    <button class="relative flex bg-white/10 rounded-md w-[92%] mt-2 md">
+    <button
+      class="relative flex bg-white/10 rounded-md md:w-[320px] w-[370px] max-md:my-4"
+    >
       <div class="p-3">
         <div @click="toggleCalendar" class="flex">
           <div
@@ -79,7 +88,11 @@ const myfunction = () => {
               <p class="gap-[76px] text-[#D1D1D1]">Qachon</p>
               <p class="text-3xl">{{ selectedDate }}</p>
             </div>
-            <img src="/public/calendar.svg" alt="calendar" class="w-[43px]" />
+            <img
+              src="/public/calendar.svg"
+              alt="calendar"
+              class="w-[43px] shrink-0"
+            />
           </div>
         </div>
         <div

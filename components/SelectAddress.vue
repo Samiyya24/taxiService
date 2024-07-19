@@ -44,36 +44,36 @@ const toggleFromList = () => {
     <!-- QAYERDAN -->
     <div>
       <button
-        class="bg-white/10 rounded-md px-[24px] relative"
+        class="bg-white/20 w-full md:w-[320px] max-md:mt-5 rounded-md px-[24px] relative shadow-md hover:shadow-lg transition-shadow duration-300"
         @click="toggleFromList"
       >
         <div
           class="duration-300"
           :class="!setPlaceFrom ? 'scale-100 gap-3 py-3' : 'scale-0 w-0 h-0'"
         >
-          <p class="py-5 px-12 text-3xl text-white">{{ props.title }}</p>
+          <p class="py-5 px-12 text-3xl text-gray-300">{{ props.title }}</p>
         </div>
         <div
           class="flex flex-col text-left duration-300"
-          :class="setPlaceFrom ? 'scale-100 gap-3 py-4' : 'scale-0 w-0 h-0'"
+          :class="setPlaceFrom ? 'scale-100 gap-3 py-3' : 'scale-0 w-0 h-0'"
         >
-          <p>Qayerdan</p>
-          <p class="text-3xl line-clamp-1">
+          <p class="text-gray-300">Qayerdan</p>
+          <p class="text-3xl line-clamp-1 text-white">
             {{ setPlaceFrom ? setPlaceFrom : "" }}
           </p>
         </div>
         <transition name="slide-fade" v-if="showFromList">
           <div
-            class="flex mt-[13px] z-40 w-[225%] text-left bg-black/60 text-2xl max-h-40 absolute left-0"
+            class="flex flex-col md:flex-row mt-[13px] z-40 w-full md:w-[225%] text-left bg-gray-700 shadow-lg text-2xl max-h-40 absolute left-0 border border-gray-600 rounded-md"
           >
             <!-- regions -->
             <div
-              class="flex-col border flex cursor-pointer w-[72%] overflow-auto overflow-x-hidden"
+              class="flex-col border-r flex cursor-pointer w-full md:w-[50%] overflow-auto overflow-x-hidden bg-gray-800"
             >
               <span
                 v-for="(city, index) in cities"
                 :key="city.region"
-                class="px-5 py-2 hover:bg-white/20"
+                class="px-5 py-2 hover:bg-gray-600 text-gray-300"
                 @click="selectedRegionFrom(index)"
               >
                 {{ city.region }}
@@ -81,13 +81,13 @@ const toggleFromList = () => {
             </div>
             <!-- districts -->
             <div
-              class="flex flex-col overflow-y-auto w-[82%]"
+              class="flex flex-col overflow-y-auto w-full md:w-[50%] bg-black/80"
               v-if="selectRegionFrom !== null"
             >
               <span
                 v-for="district in cities[selectRegionFrom].district"
                 :key="district"
-                class="py-2 px-7 hover:bg-white/20"
+                class="py-2 px-7 hover:bg-gray-600 text-gray-300"
                 @click="
                   setPlaceFromDistrict(
                     cities[selectRegionFrom].region,
