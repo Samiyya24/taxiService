@@ -1,32 +1,27 @@
 <script setup>
-import regionsData from "../../JSON/regions.json";
 import "v-calendar/style.css";
+import { onClickOutside } from "@vueuse/core";
 
 const date = ref(new Date());
 
 const setPlaceTo = ref(null);
-const showFromList = ref(false);
 const showToList = ref(false);
 const showCalendar = ref(false);
 
 let selectedDate = ref(null);
 
-
-
-
+const target = ref(null);
+onClickOutside(target, () => {
+  showCalendar.value = false;
+});
 
 const toggleCalendar = () => {
   showCalendar.value = !showCalendar.value;
   console.log(date.value);
 };
 
-
-
 const hideAllLists = () => {
-  //   showToList.value = false;
-  //   showFromList.value = false;
   showCalendar.value = false;
-  //   console.log('showToList.value =', showToList.value, 'showFromList.value = ',showFromList.value, 'showCalendar.value = ',showCalendar.value);
   console.log("hello");
 };
 
@@ -40,36 +35,51 @@ const myfunction = () => {
   let month = ref(null);
   let day = ref(null);
   console.log(selectedDate >= today, selectedDate, today);
+
+  const notify = (mess) => {
+    useNuxtApp().$toast.info(mess);
+  };
   if (selectedDate >= today) {
     year = String(selectedDate.getFullYear());
     month = String(selectedDate.getMonth() + 1).padStart(2, "0");
     day = String(selectedDate.getDate()).padStart(2, "0");
     selectedDate = `${year}.${month}.${day}`;
   } else {
-    alert("O'tib ketgan kun tanlandi");
+    notify("Kun xato tanlandi");
+    selectedDate = "";
   }
 };
 </script>
 
 <template>
-  <div>
+  <div ref="target">
     <div
-      v-if="showToList || showFromList"
+      v-if="showToList"
       id="back"
       @click="hideAllLists"
       class="bg-red-200 w-screen h-screen fixed top-0 left-0 z-30"
     ></div>
 
     <!-- QACHON -->
-    <button class="relative flex gap-[50px] bg-white/10 rounded-md mt-2 md">
+    <button class="relative flex bg-white/10 rounded-md w-[92%] mt-2 md">
       <div class="p-3">
-        <div @click="toggleCalendar" class="flex gap-16 py-4 pr-2 pl-16">
-          <div>
-            <p class="text-3xl gap-[76px] text-white">Qachon</p>
+        <div @click="toggleCalendar" class="flex">
+          <div
+            class="flex gap-10 duration-300"
+            :class="!selectedDate ? 'scale-100  py-4 px-10' : 'scale-0 w-0 h-0'"
+          >
+            <p class="text-3xl text-white">Qachon</p>
             <img src="/public/calendar.svg" alt="calendar" class="" />
           </div>
-          <div>
-            <p>{{ selectedDate }}</p>
+          <div
+            class="flex gap-14 pr-7 pl-2 py-1 duration-300"
+            :class="selectedDate ? 'scale-100' : 'scale-0 w-0 h-0'"
+          >
+            <div class="text-left flex flex-col gap-3">
+              <p class="gap-[76px] text-[#D1D1D1]">Qachon</p>
+              <p class="text-3xl">{{ selectedDate }}</p>
+            </div>
+            <img src="/public/calendar.svg" alt="calendar" class="w-[43px]" />
           </div>
         </div>
         <div
@@ -84,8 +94,6 @@ const myfunction = () => {
                 style="box-shadow: 0 0 10px 0 white !important"
                 v-model="date"
                 @update:model-value="myfunction"
-                mode="dateTime"
-                is24hr
               />
             </template>
             <template #fallback>

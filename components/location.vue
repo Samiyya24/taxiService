@@ -2,12 +2,14 @@
   <div>
     <div>
       <div class="md:flex justify-between items-center mt-16 mb-7">
-       
-        <FilterButtonsWhere/>
-        <FilterButtonsWhereTo/>
-        <FilterButtonsCalendar/>
+        <SelectAddress title="Qayerdan" @selectaddress="SelectFrom" />
+        <SelectAddress title="Qayerga" @selectaddress="SelectTo" />
+        <FilterButtonsCalendar />
+
         <!-- QIDIRISH -->
-        <button class="bg-primary md:py-7 md:px-14 mt-2 max-md:ml-[20%] py-3 px-14 text-3xl rounded-md">
+        <button
+          class="bg-primary md:py-7 md:px-14 mt-2 max-md:ml-[20%] py-3 px-14 text-3xl rounded-md"
+        >
           Qidirish
         </button>
       </div>
@@ -16,105 +18,15 @@
 </template>
 
 <script setup>
-import regionsData from '../../JSON/regions.json';
-import 'v-calendar/style.css';
-
-const date = ref(new Date());
-const cities = reactive(regionsData.regions);
-const setPlaceFrom = ref(null);
-const setPlaceTo = ref(null);
-const showFromList = ref(false);
-const showToList = ref(false);
-const showCalendar = ref(false);
-const selectRegionFrom = ref(0);
-const selectRegionTo = ref(0);
-let selectedDate = ref(null);
-
-const setPlaceFromDistrict = (region, district) => {
-  setPlaceFrom.value = `${region}. ${district}`;
+const filterForm = ref({
+  to: "",
+  from: "",
+  when: "",
+});
+const SelectTo = (address) => {
+  filterForm.to = address;
 };
-
-const setPlaceToDistrict = (region, district) => {
-  setPlaceTo.value = `${region}. ${district}`;
-};
-
-const selectedRegionFrom = (index) => {
-  showFromList.value = false;
-  selectRegionFrom.value = index;
-};
-
-const selectedRegionTo = (index) => {
-  showToList.value = false;
-  selectRegionTo.value = index;
-};
-
-const toggleCalendar = () => {
-  showCalendar.value = !showCalendar.value;
-  if (showCalendar.value) {
-    showFromList.value = false;
-    showToList.value = false;
-  }
-  console.log(date.value);
-};
-
-const toggleFromList = () => {
-  showFromList.value = !showFromList.value;
-  if (showFromList.value) {
-    showToList.value = false;
-  }
-};
-
-const toggleToList = () => {
-  showToList.value = !showToList.value;
-  if (showToList.value) {
-    showFromList.value = false;
-  }
-};
-
-const hideAllLists = () => {
-  showToList.value = false;
-  showFromList.value = false;
-  showCalendar.value = false;
-};
-
-const myfunction = () => {
-  console.log(date.value);
-  selectedDate = date.value;
-  let today = new Date();
-  selectedDate.setHours(0, 0, 0, 0);
-  today.setHours(0, 0, 0, 0);
-  let year = ref(null);
-  let month = ref(null);
-  let day = ref(null);
-  console.log(selectedDate >= today, selectedDate, today);
-  if (selectedDate >= today) {
-    year = String(selectedDate.getFullYear());
-    month = String(selectedDate.getMonth() + 1).padStart(2, '0');
-    day = String(selectedDate.getDate()).padStart(2, '0');
-    selectedDate = `${year}.${month}.${day}`;
-  } else {
-    alert('tanlamang');
-  }
+const SelectFrom = (address) => {
+  filterForm.from = address;
 };
 </script>
-
-<style lang="scss" scoped>
-.overflow-y-auto {
-  overflow-y: auto;
-}
-.max-h-40 {
-  max-height: 15rem;
-}
-.slide-fade-enter-active,
-.slide-fade-leave-active {
-  transition: all 0.5s ease;
-}
-.slide-fade-enter-from {
-  transform: translateX(50px);
-  opacity: 0;
-}
-.slide-fade-leave-to {
-  transform: translateX(50px);
-  opacity: 0;
-}
-</style>

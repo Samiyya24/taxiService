@@ -10,4 +10,9 @@ export default defineNuxtConfig({
   },
 
   modules: ["@samk-dev/nuxt-vcalendar", "@pinia/nuxt"],
+  vite: {
+    optimizeDeps: {
+      include: ["@venegrad/vue3-click-outside"],
+    },
+  },
 });

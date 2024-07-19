@@ -22,7 +22,7 @@ const setComponent = (component) => {
         >
           Taxi
         </button>
-        <button
+        <!-- <button
           class="py-3 md:px-[74px] px-[48px]"
           :class="{
             'bg-primary': currentComponent === 'yuk',
@@ -41,7 +41,7 @@ const setComponent = (component) => {
           @click="setComponent('pochta')"
         >
           Pochta
-        </button>
+        </button> -->
       </div>
     </div>
     <div v-if="currentComponent === 'taxi'">
