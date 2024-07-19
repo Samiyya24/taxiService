@@ -8,8 +8,7 @@ const cities = reactive(regionsData.regions);
 const setPlaceFrom = ref(null);
 
 const showFromList = ref(false);
-const showToList = ref(false);
-const selectRegionFrom = ref(0);
+const selectRegionFrom = ref(null);
 const props = defineProps({
   title: String,
 });
@@ -17,6 +16,7 @@ const props = defineProps({
 const target = ref(null);
 onClickOutside(target, () => {
   showFromList.value = false;
+  selectRegionFrom.value = null;
 });
 
 const emit = defineEmits(["selectaddress"]);
@@ -24,17 +24,20 @@ const emit = defineEmits(["selectaddress"]);
 const setPlaceFromDistrict = (region, district) => {
   setPlaceFrom.value = `${region}. ${district}`;
   emit("selectaddress", setPlaceFrom.value);
+  showFromList.value = false;
+  selectRegionFrom.value = null;
 };
 
 const selectedRegionFrom = (index) => {
-  showFromList.value = false;
   selectRegionFrom.value = index;
+  showFromList.value = true;
 };
 
 const toggleFromList = () => {
-  showFromList.value = !showFromList.value;
-  if (showFromList.value) {
-    showToList.value = false;
+  if (selectRegionFrom.value === null) {
+    showFromList.value = !showFromList.value;
+  } else {
+    showFromList.value = true;
   }
 };
 </script>
@@ -64,10 +67,11 @@ const toggleFromList = () => {
         </div>
         <transition name="slide-fade" v-if="showFromList">
           <div
-            class="flex flex-col md:flex-row mt-[13px] z-40 w-full md:w-[225%] text-left bg-gray-700 shadow-lg text-2xl max-h-40 absolute left-0 border border-gray-600 rounded-md"
+            class="md:flex max-md:overflow-auto flex-col md:flex-row mt-[13px] z-40 w-full md:w-[225%] text-left bg-gray-700 shadow-lg text-2xl max-h-40 absolute left-0 border border-gray-600 rounded-md"
           >
             <!-- regions -->
             <div
+              v-show="selectRegionFrom === null"
               class="flex-col border-r flex cursor-pointer w-full md:w-[50%] overflow-auto overflow-x-hidden bg-gray-800"
             >
               <span
@@ -81,11 +85,11 @@ const toggleFromList = () => {
             </div>
             <!-- districts -->
             <div
-              class="flex flex-col overflow-y-auto w-full md:w-[50%] bg-black/80"
-              v-if="selectRegionFrom !== null"
+              v-show="selectRegionFrom !== null"
+              class="flex flex-col overflow-y-auto w-full bg-black/80"
             >
               <span
-                v-for="district in cities[selectRegionFrom].district"
+                v-for="district in cities[selectRegionFrom]?.district || []"
                 :key="district"
                 class="py-2 px-7 hover:bg-gray-600 text-gray-300"
                 @click="

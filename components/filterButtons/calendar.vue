@@ -5,8 +5,6 @@ import { toast } from "vue3-toastify";
 
 const date = ref(new Date());
 
-const setPlaceTo = ref(null);
-const showToList = ref(false);
 const showCalendar = ref(false);
 
 let selectedDate = ref(null);
@@ -19,11 +17,6 @@ onClickOutside(target, () => {
 const toggleCalendar = () => {
   showCalendar.value = !showCalendar.value;
   console.log(date.value);
-};
-
-const hideAllLists = () => {
-  showCalendar.value = false;
-  console.log("hello");
 };
 
 const myfunction = () => {
@@ -46,7 +39,6 @@ const myfunction = () => {
     day = String(selectedDate.getDate()).padStart(2, "0");
     selectedDate = `${year}.${month}.${day}`;
   } else {
-    // notify("Kun xato tanlandi");
     selectedDate = "";
     toast("Kun xato tanlandi", {
       theme: "dark",
@@ -59,17 +51,31 @@ const myfunction = () => {
 </script>
 
 <template>
-  <div ref="target">
+  <div ref="target" class="">
     <div
-      v-if="showToList"
-      id="back"
-      @click="hideAllLists"
-      class="bg-red-200 w-screen h-screen fixed top-0 left-0 z-30"
-    ></div>
+      class="absolute md:w-[320px] w-[370px] md:left-0 lefy-10 top-[29%] md:top-full duration-300"
+      :class="!showCalendar ? 'scale-100' : 'scale-0 w-0 h-0'"
+    >
+      <Suspense>
+        <template #default>
+          <VDatePicker
+            v-if="showCalendar"
+            :class="showCalendar ? 'scale-100' : 'scale-0 w-0 h-0'"
+            class="!w-full !bg-black !text-white !border-0 duration-300"
+            style="box-shadow: 0 0 10px 0 white !important"
+            v-model="date"
+            @update:model-value="myfunction"
+          />
+        </template>
+        <template #fallback>
+          <div>Yuklanmoqda...</div>
+        </template>
+      </Suspense>
+    </div>
 
     <!-- QACHON -->
     <button
-      class="relative flex bg-white/10 rounded-md md:w-[320px] w-[370px] max-md:my-4"
+      class="relative flex bg-white/20 rounded-md md:w-[320px] w-[370px] max-md:my-4"
     >
       <div class="p-3">
         <div @click="toggleCalendar" class="flex">
@@ -94,25 +100,6 @@ const myfunction = () => {
               class="w-[43px] shrink-0"
             />
           </div>
-        </div>
-        <div
-          class="absolute w-full left-0 top-full duration-300"
-          :class="!setPlaceTo?.value ? 'scale-100' : 'scale-0 w-0 h-0'"
-        >
-          <Suspense>
-            <template #default>
-              <VDatePicker
-                v-if="showCalendar"
-                class="!w-full !bg-white/10 !text-white !border-0"
-                style="box-shadow: 0 0 10px 0 white !important"
-                v-model="date"
-                @update:model-value="myfunction"
-              />
-            </template>
-            <template #fallback>
-              <div>Yuklanmoqda...</div>
-            </template>
-          </Suspense>
         </div>
       </div>
     </button>
